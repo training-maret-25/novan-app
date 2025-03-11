@@ -1,0 +1,14 @@
+C:\Users\novan\source\repos\NovandroRomanda-Training\bin\Debug\net9.0\NovandroRomanda-Training.exe
+C:\Users\novan\source\repos\NovandroRomanda-Training\bin\Debug\net9.0\NovandroRomanda-Training.deps.json
+C:\Users\novan\source\repos\NovandroRomanda-Training\bin\Debug\net9.0\NovandroRomanda-Training.runtimeconfig.json
+C:\Users\novan\source\repos\NovandroRomanda-Training\bin\Debug\net9.0\NovandroRomanda-Training.dll
+C:\Users\novan\source\repos\NovandroRomanda-Training\bin\Debug\net9.0\NovandroRomanda-Training.pdb
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\NovandroRomanda-Training.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\NovandroRomanda-Training.AssemblyInfoInputs.cache
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\NovandroRomanda-Training.AssemblyInfo.cs
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\NovandroRomanda-Training.csproj.CoreCompileInputs.cache
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\NovandroRomanda-Training.dll
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\refint\NovandroRomanda-Training.dll
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\NovandroRomanda-Training.pdb
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\NovandroRomanda-Training.genruntimeconfig.cache
+C:\Users\novan\source\repos\NovandroRomanda-Training\obj\Debug\net9.0\ref\NovandroRomanda-Training.dll
