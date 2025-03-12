@@ -3,6 +3,67 @@ using System.Data.Common;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using Microsoft.VisualBasic;
+using System.IO;
+using System.Threading;
+using Serilog;
+
+// LinQ
+    class Employee  {
+        public string Name { get; set; }
+        public int YearJoined { get; set; }
+    }
+
+    class Transaction
+    {
+        public string TransactionId { get; set; }
+        public DateTime Date { get; set; }
+    }
+
+    class Karyawan {
+        public int Id { get; set; }
+        public string Nama { get; set; }
+    }
+
+    class indonesia {
+        public int id { get; set; }
+        public string koruptor { get; set; }
+    }
+
+    public class DatabaseService {
+        public async Task<string> GetDataAsync() {
+            await Task.Delay(2000);
+            return "database result";
+        }
+    }
+
+    public class Logger
+    {
+        public async Task LogAsync(string message)
+        {
+            try
+            {
+                await Task.Delay(1000);
+                Console.WriteLine($"Log: {message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Logging failed: {ex.Message}");
+            }
+        }
+    }
+
+    public class ReportGenerator
+    {
+        public async Task GenerateReportAsync(CancellationToken cancellationToken)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                cancellationToken.ThrowIfCancellationRequested(); // Cek jika ada permintaan pembatalan
+                Console.WriteLine($"Generating part {i + 1}...");
+                await Task.Delay(2000, cancellationToken); // Task.Delay bisa dibatalkan
+            }
+        }
+    }
 
 class Program
 {
@@ -41,48 +102,48 @@ class Program
     // 4. Buat function yang menerima integer (maksimal 9999) dan mengembalikannya dalam format teks dalam bahasa Indonesia.
     static readonly Dictionary<int, string> angkaKata = new Dictionary<int, string>
     {
-       {0, "Nol"}, {1, "Satu"}, {2, "Dua"}, {3, "Tiga"}, {4, "Empat"}, {5, "Lima"}, {6, "Enam"}, {7,"Tujuh"}, {8, "Delapan"}, {9, "Sembilan"},
-       {10, "Sepuluh"}, {11, "Sebelas"}, {12, "Dua Belas"}, {13, "Tiga Belas"}, {14, "Empat Belas"}, {15, "Lima Belas"}, {16, "Enam Belas"},
-       {17, "Tujuh Belas"}, {18, "Delapa Belas"}, {19, "Sembilan Belas"}, {20, "Dua Puluh"}, {30, "Tiga Puluh"}, {40, "Empat Puluh"},
-       {50, "Lima Puluh"}, {60, "Enam Puluh"}, {70, "Tujuh Puluh"}, {80, "Delapan Puluh"}, {90, "Sembilan Puluh"}
+    {0, "Nol"}, {1, "Satu"}, {2, "Dua"}, {3, "Tiga"}, {4, "Empat"}, {5, "Lima"}, {6, "Enam"}, {7,"Tujuh"}, {8, "Delapan"}, {9, "Sembilan"},
+    {10, "Sepuluh"}, {11, "Sebelas"}, {12, "Dua Belas"}, {13, "Tiga Belas"}, {14, "Empat Belas"}, {15, "Lima Belas"}, {16, "Enam Belas"},
+    {17, "Tujuh Belas"}, {18, "Delapa Belas"}, {19, "Sembilan Belas"}, {20, "Dua Puluh"}, {30, "Tiga Puluh"}, {40, "Empat Puluh"},
+    {50, "Lima Puluh"}, {60, "Enam Puluh"}, {70, "Tujuh Puluh"}, {80, "Delapan Puluh"}, {90, "Sembilan Puluh"}
     };
 
     static string ConvertToWords(int number)
     {
-       if (number == 0) return angkaKata[0];
+    if (number == 0) return angkaKata[0];
 
-       string resultKata = " ";
+    string resultKata = " ";
 
-       if (number >= 1000)
-       {
-           int ribuan = number / 1000;
-           resultKata += (ribuan == 1 ? "Seribu" : angkaKata[ribuan] + " Ribu");
-           number %= 1000;
-           if (number > 0) resultKata += " ";
-       }
+    if (number >= 1000)
+    {
+        int ribuan = number / 1000;
+        resultKata += (ribuan == 1 ? "Seribu" : angkaKata[ribuan] + " Ribu");
+        number %= 1000;
+        if (number > 0) resultKata += " ";
+    }
 
-       if (number >- 100)
-       {
-           int ratusan = number / 100;
-           resultKata += (ratusan == 1 ? "Seratus" : angkaKata[ratusan] + " Ratus");
-           number %= 100;
-           if (number > 0) resultKata += " ";
-       }
+    if (number >- 100)
+    {
+        int ratusan = number / 100;
+        resultKata += (ratusan == 1 ? "Seratus" : angkaKata[ratusan] + " Ratus");
+        number %= 100;
+        if (number > 0) resultKata += " ";
+    }
 
-       if (number >= 20)
-       {
-           int puluhan = (number / 10) * 10;
-           resultKata += angkaKata[puluhan];
-           number %= 10;
-           if (number > 0) resultKata += " ";
-       }
+    if (number >= 20)
+    {
+        int puluhan = (number / 10) * 10;
+        resultKata += angkaKata[puluhan];
+        number %= 10;
+        if (number > 0) resultKata += " ";
+    }
 
-       if ( number > 0 )
-       {
-           resultKata += angkaKata[number];
-       }
+    if ( number > 0 )
+    {
+        resultKata += angkaKata[number];
+    }
 
-       return resultKata;
+    return resultKata;
     }
 
     // 5. Buat function yang menerima string dan mengembalikan bentuk kompresi sederhana di mana setiap huruf diikuti oleh jumlah kemunculannya jika lebih dari 1.
@@ -118,27 +179,96 @@ class Program
     }
     // 3. 
 
-    
 
-    // LinQ
-    class Employee  {
-        public string Name { get; set; }
-        public int YearJoined { get; set; }
-    }
+     static void SaveLog(string message) {
+            if (string.IsNullOrEmpty(message)) {
+                LogError.Warning("Pesan log kosong tidak akan disimpan");
+                return;
+            }
 
-    class Transaction
-    {
-        public string TransactionId { get; set; }
-        public DateTime Date { get; set; }
-    }
+            string logFilePath = $"logs_{DateTime.Now:yyyymmdd}.log";
+            int maxRetries = 3;
+            int retryDelay = 1000;
 
-     class Karyawan
-    {
-        public int Id { get; set; }
-        public string Nama { get; set; }
-    }
+            for (int attempt = 1; attempt <= maxRetries; attempt++) {
+                try {
+                    File.AppendAllText($"Percobaan {attempt}: Gagal menyimpan log. Error: {ex.Message}");
+                    if (attempt == maxRetries) {
+                        Log.Fatal("Gagal menyimpan log setelah beberapa percobaan. Log tidak akan disimpan.");
+                        break;
+                    }
 
+                    Thread.Sleep(retryDelay);
+                } 
+            }
+        }
+
+        static void LogError(string message)
+        {
+            string logFileName = $"error_{DateTime.Now:yyyy-MM-dd}.log"; 
+
+            try
+            {
+                using (StreamWriter logWriter = new StreamWriter(logFileName, append: true))
+                {
+                    logWriter.WriteLine($"{DateTime.Now:HH:mm:ss} - {message}");
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Gagal menulis log kesalahan.");
+            }
+        }
+
+        static void SaveUser(string filePath, string data) {
+            if(string.IsNullOrWhiteSpace(data)) {
+                Console.WriteLine("Data tidak boleh kosong");
+                return;
+            }
+
+            int maxRetries = 3; 
+            int delayBetweenRetries = 2000; 
+
+            for (int attempt = 1; attempt <= maxRetries; attempt++)
+            {
+                try
+                {
+                    // Menggunakan 'using' agar StreamWriter otomatis ditutup
+                    using (StreamWriter writer = new StreamWriter(filePath, append: true))
+                    {
+                        writer.WriteLine(data);
+                    }
+
+                    Console.WriteLine("User data saved successfully.");
+                    return;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    LogError($"ERROR: Tidak memiliki izin untuk mengakses file: {ex.Message}");
+                    Console.WriteLine("Gagal menyimpan data: Izin tidak mencukupi.");
+                    return; 
+                }
+                catch (IOException ex)
+                {
+                    LogError($"ERROR: Kesalahan IO pada percobaan {attempt}: {ex.Message}");
+                    Console.WriteLine($"Gagal menyimpan data, mencoba lagi... ({attempt}/{maxRetries})");
+
+                    if (attempt < maxRetries)
+                        Thread.Sleep(delayBetweenRetries); 
+                        Console.WriteLine("Gagal menyimpan data setelah beberapa percobaan.");
+                }
+                catch (Exception ex)
+                {
+                    LogError($"ERROR: Kesalahan tidak terduga: {ex.Message}");
+                    Console.WriteLine("Terjadi kesalahan yang tidak diketahui.");
+                    return;
+                }
+            }
+        }
+ 
     static void Main()
+    // // debugging async
+    // static async Task Main()
     {
         // 1
         Console.WriteLine(CountDigits(12345));
@@ -318,5 +448,52 @@ class Program
         {
             Console.WriteLine(item);
         }
-    }
-}    
+
+        // Debugging Asyncronous 
+        // 1. 
+        var dbService = new DatabaseService();
+        Console.WriteLine("Fetching Data...");
+        string rslt = await dbService.GetDataAsync();
+        Console.WriteLine(rslt);
+
+        // 2. 
+        var logger = new Logger();
+
+        // Fire-and-forget dengan exception handling
+        _ = Task.Run(async () => await logger.LogAsync("Application started"));
+
+        Console.WriteLine("Main method done");
+        Task.Delay(2000).Wait();
+
+        // 3. 
+        var reportGenerator = new ReportGenerator();
+        var cts = new CancellationTokenSource();
+
+        var task = reportGenerator.GenerateReportAsync(cts.Token);
+
+        await Task.Delay(5000);
+        Console.WriteLine("User decided to cancel!");
+        cts.Cancel();
+
+        try
+        {
+            await task;
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Report generation was cancelled.");
+        }
+
+        // exception handling debugging
+        SaveUser("user_data.txt", "John Doe, johndoe@gmail.com, 25");
+
+        //exception handling code review
+
+        Log.Logger = new LoggerConfiguration()
+            .Write.Console()
+            .WriteTo.File("error.log", rollingInterval: RollingInterval.Day)
+            .CreateLogger;
+
+
+    }    
+}

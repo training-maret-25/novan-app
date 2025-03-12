@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NovandroRomanda-Training")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c7110b364d1f1d000643287bac04b9949ac9d619")]
 [assembly: System.Reflection.AssemblyProductAttribute("NovandroRomanda-Training")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NovandroRomanda-Training")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
